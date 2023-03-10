@@ -1,0 +1,51 @@
+﻿@page
+@model shifts_logger.Pages.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Pages/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>ShiftLogs</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ShiftLogs.ID" />
+            <div class="form-group">
+                <label asp-for="ShiftLogs.Name" class="control-label"></label>
+                <input asp-for="ShiftLogs.Name" class="form-control" />
+                <span asp-validation-for="ShiftLogs.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShiftLogs.Description" class="control-label"></label>
+                <input asp-for="ShiftLogs.Description" class="form-control" />
+                <span asp-validation-for="ShiftLogs.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShiftLogs.StartTime" class="control-label"></label>
+                <input asp-for="ShiftLogs.StartTime" class="form-control" type="datetime-local" asp-format="{0:dd/MM/yyyy HH:mm}" />
+                <span asp-validation-for="ShiftLogs.StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ShiftLogs.EndTime" class="control-label"></label>
+                <input asp-for="ShiftLogs.EndTime" class="form-control" type="datetime-local" asp-format="{0:dd/MM/yyyy HH:mm}" />
+                <span asp-validation-for="ShiftLogs.EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

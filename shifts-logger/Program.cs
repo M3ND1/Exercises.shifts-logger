@@ -1,33 +1,32 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.SqlServer;
 using shifts_logger.Data;
 using shifts_logger.Interfaces;
 using shifts_logger.Repository;
+using shifts_logger.SeedData;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddScoped<IShiftLogsRepository, ShiftLogsRepository>();
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-// Add services to the container.
 builder.Services.AddDbContext<ShiftLogsContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("myConnString")));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var services = scope.ServiceProvider;
+    Seed.Initialize(services);
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+app.UseRouting();
 
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapRazorPages();
 
-app.Run();
+await app.RunAsync();

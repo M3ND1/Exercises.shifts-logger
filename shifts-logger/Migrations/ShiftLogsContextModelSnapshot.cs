@@ -35,14 +35,14 @@ namespace shifts_logger.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2(0)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("datetime2(0)");
 
                     b.HasKey("ID");
 
